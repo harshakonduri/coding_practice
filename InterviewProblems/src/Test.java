@@ -1,14 +1,54 @@
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.PriorityQueue;
 
 
 public class Test {
 static HashMap<DummyNode,String> m = new HashMap<DummyNode, String>();
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-DummyNode d1 = new DummyNode("Hello");
+/*DummyNode d1 = new DummyNode("Hello");
 m.put(d1, "Hello Hi");
-System.out.println(m.get(new DummyNode("Hello")));
-
+System.out.println(m.get(new DummyNode("Hello")));*/
+int []a = {1,2,5};
+int []b = {4,11,12};
+int i=0,j=0;
+int ans = 99;
+while (i < a.length && j < b.length) {
+	   if (a[i] <= b[j]) { 
+		   ans = Math.min(ans, b[j]-a[i]);
+		   i++; 
+		   } 
+	   else {
+		 //  ans = Math.min(ans, a[i]-b[j]);
+		   j++;
+		   }
+	}
+//System.out.println(ans);
+PriorityQueue<Integer> p =new PriorityQueue<Integer>();
+p.add(221);
+p.add(22);
+p.add(3);
+//System.out.println(p.poll());
+LRU<Integer,String> l = new LRU<Integer, String>(3);
+//LinkedHashMap<Integer, String> l = new LinkedHashMap<Integer, String>();
+l.put(1,"a");
+l.put(2,"b");
+l.put(3,"c");
+l.put(4,"b");
+l.put(5,"e");
+l.put(6, "a");
+System.out.println(l.size());
+System.out.println(l);
 	}
 
+public static boolean modb(int []a ,int l,int m,int h, int k) {
+	if(l == h) {
+		if(a[l] == k) {
+			return true;
+		}
+
+	}
+	return false;
+}
 }

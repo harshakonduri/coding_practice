@@ -32,7 +32,8 @@ public class LongestCommonSubsequence {
 							}*/
 							//else {
 								String preval = store[i-1][j-1];
-								int v = Integer.parseInt(preval.substring(0,1));
+								String [] sub = preval.split(":");
+								int v = Integer.parseInt(sub[0]);
 								store[i][j] = (v+1)+":"+1;
 							//}
 						}
@@ -43,9 +44,11 @@ public class LongestCommonSubsequence {
 							}*/
 							//else {
 								String preij = store[i-1][j];
-								int v = Integer.parseInt(preij.substring(0,1));
+								String [] sub = preij.split(":");
+								int v = Integer.parseInt(sub[0]);
 								String iprej = store[i][j-1];
-								int vv = Integer.parseInt(iprej.substring(0,1));
+								String [] isub = iprej.split(":");
+								int vv = Integer.parseInt(isub[0]);
 								if(vv > v) {
 									store[i][j] = vv+":"+0;	
 								}
@@ -58,12 +61,12 @@ public class LongestCommonSubsequence {
 						 
 					}
 				}
-				/*for(int i=0;i<=values[0].length();i++) {
+				for(int i=0;i<=values[0].length();i++) {
 					for(int j=0;j<=values[1].length();j++) {
 						System.out.print(store[i][j]+" ");
 					}
 					System.out.println();
-				}*/
+				}
 				//for(int i=values[0].length();i>0;) {
 				//	for(int j=values[1].length();j>0;) {
 				StringBuffer result = new StringBuffer();
