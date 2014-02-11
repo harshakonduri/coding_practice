@@ -1,0 +1,45 @@
+/**
+ */
+public class TopKPoints {
+    public static void main(String [] args){
+	int [][] p = new int[5][2];
+	for(int i = 0;i<5;i++) {
+	    p[i][0] = p.length-i;
+	    p[i][1] = i;
+	}
+	for(Double d:findClosestPoints(p,2)) {
+	    System.out.println(d);
+	} 
+    }
+    /**
+     */
+	public static java.util.PriorityQueue<Double> findClosestPoints(int [][] points,int limit) {
+	int numberOfPoints = points.length; // the total number of points in input
+	if(0 == numberOfPoints) {
+	    return null;
+	}
+	java.util.PriorityQueue<Double> closestSetOfPoints = new java.util.PriorityQueue<Double>(limit,
+							java.util.Collections.reverseOrder());
+	// loop through all the input points
+	for(int i = 0;i < numberOfPoints;i++) {
+	    double currentDistance = distanceFromOrigin(points[i][0],points[i][1]);
+	    if(limit <= closestSetOfPoints.size()) {//we have input of 100 points
+		double d = closestSetOfPoints.peek();
+		if(d > currentDistance) { //smaller point found
+		    closestSetOfPoints.remove(d);
+		    closestSetOfPoints.add(currentDistance);
+		}//end if		
+	    }// 100 points found
+	    else { 
+		closestSetOfPoints.add(currentDistance);
+	    }
+	}//end for
+	return closestSetOfPoints;
+    }//end method
+    /**
+     */
+    public static double distanceFromOrigin(int x,int y) {
+	double distance = java.lang.Math.sqrt((java.lang.Math.pow(x,2))+(java.lang.Math.pow(y,2)));
+	return distance;
+    }
+}

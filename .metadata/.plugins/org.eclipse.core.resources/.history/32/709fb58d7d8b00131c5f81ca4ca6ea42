@@ -1,0 +1,104 @@
+import java.util.*;
+public class TreePrinter {
+/*Complete the below function which takes an arraylist and displays the list in the expected output 
+ */ 
+    public static void printTree(Iterable<Relation> rs) { 
+	// your code 
+	HashMap<String,StringBuffer> tree = new HashMap<String,StringBuffer>();
+	String root = "";
+	Iterator<Relation> i = rs.iterator();
+	if(i.hasNext()) {
+	    Relation r = i.next();
+	    root = r.getParent();
+	    tree.put(r.parent,new StringBuffer(r.getChild()));
+	}
+	while(i.hasNext()) {
+	    Relation r = i.next();
+	    if(r.getChild() == root) {
+		root = r.getParent();
+	    }//if new root
+	    if(tree.containsKey(r.getParent())) {
+		StringBuffer s = tree.get(r.getParent());
+		s.append(","+r.getChild());
+		tree.remove(r.getParent());
+		tree.put(r.getParent(),s);
+	    }
+	    else {
+		tree.put(r.getParent(),new StringBuffer(r.getChild()));
+	    }	    
+	}
+	printNode(tree,root);
+	//while(root != null || root != "") {
+	    //System.out.println(root);
+	while(tree.size() > 0){
+		String []a=new String[tree.size()];
+		tree.keySet().toArray(a);
+		printNode(tree, a[0]);
+	}
+	    
+	//}
+	//System.out.println(tree);
+    } 
+    public static void printNode(HashMap<String,StringBuffer> t,String r) {
+	if(/*!(t.containsKey(r)) || */r == "" || r == null) {
+	    return;
+	}    
+	System.out.println(r);
+	if(t.containsKey(r)) {
+	StringBuffer s = t.get(r);
+	String [] children = s.toString().split(",");
+	for(String child : children) {
+	    printNode(t,child);
+	}
+	t.remove(r);
+	}
+    }
+    public static void main(String [] args) {
+	List<Relation> input = new ArrayList<Relation>();
+	input.add(new Relation("animal","mammal"));
+	input.add(new Relation("animal","bird"));
+	input.add(new Relation("lifeform","animal"));
+	input.add(new Relation("cat","lion"));
+	input.add(new Relation("mamga","harish"));
+	input.add(new Relation("harish","jaffa"));
+	input.add(new Relation("animal","fish"));
+	TreePrinter.printTree(input);
+
+    }
+ 
+
+public static class Relation { 
+    String parent; 
+    String child; 
+    public Relation(String parent, String child) { this.parent = parent;
+	this.child = child;} 
+    public String getChild() {
+	return child;
+    }
+    public String getParent() {
+	return parent;
+    }
+} 
+} 
+/*
+Example input: 
+List<Relation> input = newArrayList(); 
+
+input.add(new Relation(“animal”, “mammal”)); 
+input.add(new Relation(“animal”, “bird”)); 
+input.add(new Relation(“lifeform”, “animal”)); 
+input.add(new Relation(“cat”, “lion”)); 
+input.add(new Relation(“mammal”, “cat”)); 
+input.add(new Relation(“animal”, “fish”)); 
+
+TreePrinter.printTree(input); 
+
+Expected output: 
+line 1: lifeform 
+    line 2: animal 
+	line 3: mammal 
+	    line 4: cat 
+		line 5: lion 
+		    line 6: bird 
+			line 7: fish
+*/

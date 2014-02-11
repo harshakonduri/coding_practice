@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+
+public class BFS {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Graph g = new Graph("AL");
+		g.addEdge("a", "b");
+		g.addEdge("a", "c");
+		g.addEdge("b", "d");
+		g.addEdge("c", "d");
+		g.displayGraph();
+		bfs(g,new GraphNode("a"));
+	}
+	static boolean bfs(Graph g,GraphNode source) {
+		if(!g.hasVertex(source.toString())) {
+			return false;
+		}
+		int globalTime = 0;
+		ArrayList<GraphNode> queue = new ArrayList<GraphNode>();
+		queue.add(source);
+		source.setColor("GREY");
+		source.setD(globalTime);
+		while(0 < queue.size()) {
+			source = queue.get(0);
+			ArrayList<GraphNode> adjList = g.adjacencyList(source.toString());
+			for(GraphNode adjVertex : adjList) {
+				if(adjVertex.getColor().equals("WHITE")) {
+					queue.add(adjVertex);
+				}
+			}
+			source.setColor("BLACK");
+		}
+	}
+
+}

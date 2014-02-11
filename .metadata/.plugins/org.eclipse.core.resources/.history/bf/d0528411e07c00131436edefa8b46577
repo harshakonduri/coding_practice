@@ -1,0 +1,6 @@
+import com.google.common.collect.MinMaxPriorityQueue;
+import com.google.common.collect.Queues;
+
+public class Test {
+MinMaxPriorityQueue<String> mm = new MinMaxPriorityQueue<String>(3,new Prob24Comparator());	
+}

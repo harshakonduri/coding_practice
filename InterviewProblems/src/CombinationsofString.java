@@ -1,13 +1,20 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
 public class CombinationsofString {
-
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//combinations("abcd",new StringBuffer(),0);
-		//permutations(new StringBuffer("abcd"), 0, 4);
+		ArrayList<String> l = new ArrayList<String>();
+		l = permutations(new StringBuffer("ab"), 0, 2,l);
+		Collections.sort(l);
+		for(int i = 0; i < l.size()-2;i++) {
+			System.out.print(l.get(i)+",");
+		}
+		System.out.print(l.get(l.size()-1));
 	}
 	
 	public static void combinations(String ip,StringBuffer op,int index) {
@@ -36,10 +43,11 @@ public class CombinationsofString {
 		}
 	}
 
-	public static void permutations(StringBuffer s,int i,int n) {
+	public static ArrayList<String> permutations(StringBuffer s,int i,int n,ArrayList<String> l) {
 		if(i == n) {
-			System.out.println(s);
-			return;
+			l.add(new String(s));
+			//System.out.println(s);
+			return l;
 		}
 		//else {
 			for(int j = i;j<n;j++) {
@@ -47,12 +55,13 @@ public class CombinationsofString {
 			char t = s.charAt(i);
 			s.setCharAt(i, s.charAt(j));
 			s.setCharAt(j,t);
-			permutations(s, i+1, n);
+			permutations(s, i+1, n,l);
 			// set back char at i to j// swap them back to original
 			t = s.charAt(i);
 			s.setCharAt(i, s.charAt(j));
 			s.setCharAt(j,t);
 		}
+		return l;
 		//}
 	}
 	public static ArrayList<String> getPerms(String s) {

@@ -1,0 +1,5 @@
+package genericTrees;
+
+public class BinTree<T> {
+
+}

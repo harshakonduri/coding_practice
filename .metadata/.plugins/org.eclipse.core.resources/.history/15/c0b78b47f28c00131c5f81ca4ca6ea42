@@ -1,0 +1,60 @@
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+public class FoxNumbers {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try{
+			//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			Scanner s = new Scanner(System.in);
+			int n = s.nextInt();			
+			int [] re = new int[100];
+			HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+			PriorityQueue<Integer> pq = new PriorityQueue<Integer>(100,Collections.reverseOrder());
+			for(int i = 0;i<n;i++) {
+				re[i] = s.nextInt();//Integer.parseInt(inp[i]);
+				pq.add(re[i]);
+				hm.put(re[i], i);
+			}
+			while(true) {
+				int l1 = Integer.MIN_VALUE;
+				int l2=0;
+				int p1=0;
+				for(int i = 0;i<100;i++) {
+					if(l1 > re[i]) {
+						l1 =re[i];
+						p1 = i;
+					}
+				}
+				for(int i : re) {
+					if(l1-l2 > 0 ) {
+						l2 = i;
+					}
+				}
+				if(l1 - l2 > 0) {
+					
+					re[p1] = l1-l2;
+					//hm.remove(l1);
+					hm.put(re[p1], p1);
+					pq.add(re[p1]);
+				}
+				else {
+					pq.add(l1);
+					break;
+				}
+			}
+			int op = 0;
+			for(int i : re) {
+				op+=i;
+			}
+			System.out.println(op+"   oppppp ");
+		}	
+		catch(Exception e) {
+	
+		}
+	}
+
+}

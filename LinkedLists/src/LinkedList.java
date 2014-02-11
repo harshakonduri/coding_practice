@@ -30,7 +30,7 @@ public class LinkedList {
 	}
 	slow = head;
 	fast = head.next;
-	while(fast!=null) {
+	while(null!=fast) {
 	    fast = fast.next;
 	    if(null == fast.next) {
 		return null;
@@ -71,6 +71,10 @@ public class LinkedList {
 	    j = j.next;
 	}
     }
+    /**
+     * 
+     * @return
+     */
     public boolean isCyclePresent() {
 	Node slow,fast;
 	if(null == head || null == head.next) {
@@ -78,7 +82,7 @@ public class LinkedList {
 	}
 	slow = head;
 	fast = head.next;
-	while(fast!=null) {
+	while(null != fast) {
 	    fast = fast.next;
 	    if(null == fast.next) {
 		return false;
@@ -210,6 +214,36 @@ public class LinkedList {
 	tail = temp;
 	return last;
     }
+    public Node getMid(Node headd, Node taill) {
+	if(null == headd) {
+	    return null;
+	}
+	if(null == headd.next) {
+	    return headd;
+	}
+	if(taill == headd.next.next) {
+		return headd.next;
+	}
+	System.out.println(headd.data+" "+taill.data);
+	Node slow=headd,fast=headd.next;
+        while(taill != fast) {
+	    fast = fast.next;
+	    if(taill != fast && null != fast) {
+		fast = fast.next;
+			if(null != fast) {
+			    slow = slow.next;
+			}
+			else {
+			    return slow;
+			}
+	    }
+	    else {
+		return slow;
+	    }
+	}
+        System.out.println(slow.data+" slow data");
+        return slow;
+    }
     public boolean delete(int i) {
 	if(head == null) {
 	    return false;
@@ -233,6 +267,114 @@ public class LinkedList {
 	}
 	return false;
 
+    }
+    public static Node MergeLists(Node head1,Node head2) {
+	if(null == head1 || null == head2) {
+	    return (null == head1)?head2:head1;
+	}
+	Node root=null;
+	if(head1.data <= head2.data){
+	    root = head1;
+	}
+	else {
+	    root = head2;
+	}
+	Node t1=null;
+	while(null != head1 && null != head2) {
+	    if(head1.data <= head2.data) {
+		if(null!=head1.next && head1.next.data > head2.data){
+		t1 = head1.next;
+		head1.next = head2;
+		head1 = head1.next;
+		head2 = t1; 
+		}
+		else{
+			if(head1.next == null){
+				head1.next = head2;
+				break;
+			}else {	
+				head1 = head1.next;
+			}
+		}
+	    }
+	    else if(head2.data < head1.data) {
+		if((null!=head2.next && head2.next.data > head1.data)) {
+		t1 = head2.next;
+		head2.next = head1;
+		head1 = t1;
+		head2 = head2.next; 		
+		}
+		else {
+			if(head2.next == null){
+				head2.next = head1;
+				break;
+			}
+			else { 
+				head2 = head2.next;
+			}
+		}
+	    }	    
+	}//end while
+	if(null != head1) {
+		
+	}
+	return root;
+    }
+    public static Node sumOfLists(Node h1,Node h2) {
+	if(null == h1 || null == h2) {
+	    return (null == h1)?h2:h1;
+	}
+	LinkedList newSum = new LinkedList();
+	int sum = 0,carry = 0;
+	while((null != h1) && (null != h2)){
+	    sum = h1.data+h2.data+carry;
+	    if(sum > 9){
+		carry = sum/10;
+		sum = sum %10;
+	    }
+	    else{
+	    	carry = 0;
+	    }
+	    newSum.insert(sum);
+	    h1 = h1.next;
+	    h2 = h2.next;
+	}
+	if(0 < carry) {
+	    newSum.insert(carry);
+	}
+	newSum.printList();
+	return newSum.head;
+    }
+    static Stacks newSum1 = new Stacks();
+    public static int sumOfList(Node h1,Node h2) {
+    	if(null == h1 || null == h2) {
+    	    return 0;
+    	}
+    	
+    	int sum = 0;
+    	int c = sumOfList(h1.next, h2.next);
+    	sum = h1.data+h2.data+c;
+    	if(sum > 9){
+    		newSum1.push(sum%10);
+    		return sum/10;
+    	}
+    	else {
+    		newSum1.push(sum);
+    		return 0;
+    	}
+    	
+        }
+    public void printList(Node head) {
+	Node temp = head;
+	if(head == null) {
+	    System.out.println("Empty List");
+	    return;
+	}
+	while(temp != null) {
+	    System.out.print("---"+temp.data+"---");
+	    temp = temp.next;
+	}
+    System.out.println();
     }
     public void printList() {
 	Node temp = head;

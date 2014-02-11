@@ -11,7 +11,7 @@ public class Solution {
     	BufferedReader triangleReader = null;
     	try {
     		int [][] triangle = new int [100][100];
-    		triangleReader = new BufferedReader(new FileReader(new File("triangle.txt")));
+    		triangleReader = new BufferedReader(new FileReader(new File("triangle1.txt")));
 			String str = "";
 			int i=0,j=0;
 			while((str = triangleReader.readLine()) != null) {

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;srm_practice1&apos; to &apos;srm_practice&apos;&#x0A;- Original project: &apos;TopCoder&apos;&#x0A;- Original element: &apos;TopCoder/src/srm_practice1&apos;&#x0A;- Renamed element: &apos;TopCoder/src/srm_practice&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;srm_practice1&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;srm_practice1" name="srm_practice" qualified="false" references="true" stamp="1390256767696" textual="false" version="1.0"/>
+</session>

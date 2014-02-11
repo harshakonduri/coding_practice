@@ -1,0 +1,48 @@
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
+import com.google.common.collect.ArrayListMultimap;
+public class FoxNumbers {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try{
+			//BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			Scanner s = new Scanner(System.in);
+			int n = s.nextInt();			
+			int [] re = new int[100];
+			for(int i = 0;i<n;i++) {
+				re[i] = s.nextInt();//Integer.parseInt(inp[i]);
+			}
+			while(true) {
+			Arrays.sort(re);
+			int i1 = re.length-1;
+			int i2 = re.length-2;
+			while(i2 > 0) {
+				if(i2 == 0 && re[i1]-re[i2] == 0)
+				{
+					break;
+				}
+				i2--;
+			}
+			
+			re[i1] = re[i1]-re[i2];
+			System.out.println(re[i1]);
+			}
+			
+			for(int i : re) {
+				op+=i;
+			}
+			System.out.println(op+"   oppppp ");
+		}	
+		catch(Exception e) {
+	
+		}
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;r2&apos; in &apos;LinkedList.MergeLists(...)&apos; to &apos;head2&apos;&#x0A;- Original project: &apos;LinkedLists&apos;&#x0A;- Original element: &apos;LinkedList.MergeLists(Node, Node).r2&apos;&#x0A;- Renamed element: &apos;r2&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;r2&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{LinkedList.java[LinkedList~MergeLists~QNode;~QNode;@r2!4722!4728!4727!4728!QNode;!0!true" name="head2" references="true" stamp="1391462977950" version="1.0"/>
+</session>

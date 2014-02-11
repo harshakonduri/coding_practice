@@ -1,0 +1,21 @@
+public class TwoSmallest {
+public static void main(String[] args) {
+	int [] a = {2,3,4,5,6,7};
+	print2Smallest(a);
+}
+    static void print2Smallest(int []a) {
+	if(a.length < 2) 
+	    return;
+	int sm = Integer.MAX_VALUE,ssm = Integer.MAX_VALUE;
+	for(int i:a) {
+	    if(i < sm) {
+	    	ssm = sm;
+	    	sm = i;
+	    }
+	    else if(i > sm && i < ssm) {
+		ssm = i;
+	    }
+	}
+	System.out.println("Smallest is : "+sm+" Second Smallest is :"+ssm);
+    }
+}

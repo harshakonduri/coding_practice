@@ -37,15 +37,29 @@ class parsingLib {
 		STRING_CONVERTERS.put(60," sixty");
 		STRING_CONVERTERS.put(70," seventy");
 		STRING_CONVERTERS.put(80," eighty");
-		STRING_CONVERTERS.put(90," ninty");
+		STRING_CONVERTERS.put(90," ninety");
     }
     public static void main(String []args){
 	String inp = "1";
-	int input = 2100100232;
+	int input = 1020;
+	long c = 0;
 	//System.out.println(Integer.parseInt(inp));
 	//System.out.println(intparse(inp));
-	System.out.println(100%1000);
-		System.out.println(toS(input));
+	for(int i = 1; i<=1000;i++) {
+		StringBuffer ss = toS(i);
+
+		
+		for(int j = 0;j<ss.length();j++) {
+			
+			if(ss.charAt(j) != ' ') {
+				c++;
+			}
+		}
+		//System.out.println(c);
+	}
+	c = c - 3*9 + 10;
+	System.out.println(c);
+	//System.out.println(toS(342));
     }
     public static int intparse(String input) throws RuntimeException {
 	int result = 0,i=0,remain = MAX;
@@ -103,23 +117,34 @@ class parsingLib {
     public static StringBuffer toS(int input) {
     	StringBuffer s = new StringBuffer();
     	int length = getLength(input);
+    	//System.out.println(length+" length");
     	int temp = input;
     	int loop = length/3;
+    	if(length == 3) {
+    		loop = 0;
+    	}
+    	if(loop >= 1) {
     	for(int i = 0;i<loop;i++) {
-    		int x = temp%1000;
+    		int x = temp/1000;
     		int l3 = getLength(x);
-    		System.out.println(x);
+    		//System.out.println(x+"-- "+l3);
     		int t = 1;//getThree(x,l3);
     		if(t!=0) {
     		StringBuffer getS = toStr(x,l3);
     		temp = temp/1000;
     		//s.insert(0, getS);
-    		if(i>=1){
-    			  String con = DEC.get(3*i);
+    		//if(i>=1){
+    			  String con = DEC.get(3+i);
     			  s.insert(0,con);
-    		}
+    		//}
     		s.insert(0, getS);
     		}
+    	}
+    	}
+    	else {
+    		int len = getLength(input);
+    		StringBuffer getS = toStr(input,len);
+    		return getS;
     	}
     	return s;
     }
@@ -128,12 +153,13 @@ public static StringBuffer toStr(int input,int length) {
 	int first = 0,rest=0;
 	if(length <= 2 && STRING_CONVERTERS.containsKey(input)) {
 	    String s = STRING_CONVERTERS.get(input);
-	    return sb.append(s);
+	    sb.append(s);
+	    return sb;
 	}
 	else{	    
 	    first =  (input / (int)(java.lang.Math.pow(10,length-1)));
 	    rest = input % (int)(java.lang.Math.pow(10,length-1));
-	    System.out.println(first+" "+rest);
+	    //System.out.println(first+" "+rest);
 	    StringBuffer s = toStr(rest,length-1);
 	    String f = STRING_CONVERTERS.get(first);
 	    String con = DEC.get(length-1);
@@ -141,7 +167,7 @@ public static StringBuffer toStr(int input,int length) {
 	    if(con != null)
 	    {
 	    	sb.append(f);
-	    	sb.append(con);
+	    	sb.append(con+" and");
 	    }
 	    if(length == 2) {
 	    	String multiple = STRING_CONVERTERS.get(first*10);

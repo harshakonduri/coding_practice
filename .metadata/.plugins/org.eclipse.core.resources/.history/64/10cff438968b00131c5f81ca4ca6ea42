@@ -1,0 +1,63 @@
+public class TestLL {
+    public static void main(String []args) {
+    	/* List Testing Set */
+ 	LinkedList list1 = new LinkedList();
+ 	LinkedList list2 = new LinkedList();
+	list1.insert(3);
+	list1.insert(5);
+	list1.insert(7);
+	list2.insert(1);
+	list2.insert(2);
+	list2.insert(4);
+	list1.printList();
+	list2.printList();
+	
+/*	Node hit = list.search(1);
+	System.out.println(list.delete(1));
+	list.printList();
+	Node hit1 = list.search(1);
+	if(null == hit1) {
+	    System.out.println("Null");
+	}
+	list.insert(1,3);
+	list.printList();
+	list.insertMid(5);
+	System.out.println();
+	list.printList(); */
+	/*list.createCycle();
+	System.out.println();
+	System.out.println(list.isCyclePresent());
+	if(list.isCyclePresent()) {
+		Node p = list.removeCycle();
+		System.out.println();
+		System.out.println(p.data);
+	}///
+	list.iterativeReverse();
+	list.printList();
+	list.head = list.recursiveReverse(list.head);
+	System.out.println();
+	list.printList();
+	*/
+/* STACK TEST 
+      	SetOfStacks s = new SetOfStacks(3);
+    	s.push(1);
+    	s.push(2);
+    	s.push(3);
+    	s.push(4);
+    	s.push(5);
+    	s.push(6);
+    	s.push(7);
+    	s.push(8);
+    	System.out.println(s.set.size()+" "+s.stackIndex);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.set.size()+" "+s.stackIndex);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.set.size()+" "+s.stackIndex);
+*/
+
+    }
+}

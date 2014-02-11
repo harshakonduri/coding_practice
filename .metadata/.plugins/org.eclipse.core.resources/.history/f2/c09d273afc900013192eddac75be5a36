@@ -1,0 +1,41 @@
+public class OceanOfOnes {
+    static int count;
+    public static void main(String []args) {
+	int [][] a = {{0,0,1},{0,1,1},{0,1,1}};
+	findOcean(a);
+    }
+    static void findOcean(int [][]a) {
+    	int max = Integer.MIN_VALUE;
+	//boolean [][]b = new boolean[a.length][a[0].length];
+	for(int i = 0; i < a.length;i++) {
+	    for(int j = 0;j<a[0].length;j++) {
+		if(a[i][j] == 1) {
+			if(max < 0) {
+				max = 1'
+			}
+		    int temp = 1;
+		    while(i+temp < a.length && j+temp<a.length) {
+			boolean b = checkLevel(a,i,j,++temp);
+			if(b) {   
+				if(temp > max) {
+					max = temp;
+				}
+			}
+			else {
+			    break;
+			}
+		    }
+		}//unvisited
+	    }
+	}//end for
+	System.out.println(max*max);
+    }//end method
+    static boolean checkLevel(int [][]a,int i,int j,int level) {
+	for(int o = i;o <i+level;o++) {
+	    if(!(a[i+level-1][o] == 1) || !(a[o][j+level-1] == 1)) {
+		return false;
+	    }
+	}
+	return true;
+    }
+}

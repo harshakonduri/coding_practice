@@ -1,0 +1,79 @@
+import java.util.ArrayList;
+
+public class DFS {
+	static int globaltime;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Graph g = new Graph("AL");
+		g.addEdge("a", "b");
+		g.addEdge("a", "c");
+		g.addEdge("b", "d");
+		g.addEdge("c", "d");
+		g.addEdge("e", "f");
+//		dfs(g,g.getVertex("a"));
+//		System.out.println(connectedComponents(g));
+		ArrayList<GraphNode> al = new ArrayList<GraphNode>();
+		topologicalSort(g,al);
+/*		for(GraphNode gg : g.vertexSet()) {
+			System.out.println(gg.getName()+" "+
+								gg.getD()+" "+gg.getF());
+		}*/
+		for(GraphNode gg:)
+	}
+	static void dfs(Graph g,GraphNode source) {
+		if(!source.getColor().equals("WHITE")) {
+			return;
+		}
+
+	// set the intial time of source, change color of source
+	source.setColor("GREY");
+	source.setD(globaltime);
+	// get the adj list of verticies to the source
+	ArrayList<GraphNode> adjVertex = g.adjacencyList(source);
+	globaltime++;
+	for(GraphNode vertex : adjVertex) {//for each v belongs to the adjlist
+		if(vertex.getColor().equals("WHITE")) {//if unvisited
+			dfs(g,vertex);//visit that vertex
+		}
+	}
+	source.setColor("BLACK");//set source color to black
+	source.setF(globaltime++);//set global time
+	}
+    static void topologicalSortDFS(Graph g,GraphNode source,ArrayList<GraphNode> al) {
+		if(!source.getColor().equals("WHITE")) {
+			return;
+		}
+
+	// set the intial time of source, change color of source
+	source.setColor("GREY");
+	source.setD(globaltime);
+	// get the adj list of verticies to the source
+	ArrayList<GraphNode> adjVertex = g.adjacencyList(source);
+	globaltime++;
+	for(GraphNode vertex : adjVertex) {//for each v belongs to the adjlist
+		if(vertex.getColor().equals("WHITE")) {//if unvisited
+			dfs(g,vertex);//visit that vertex
+		}
+	}
+	source.setColor("BLACK");//set source color to black
+	source.setF(globaltime++);//set global time
+	al.add(source);
+	}
+	static int connectedComponents(Graph g) {
+		int i = 0;
+		for(GraphNode vertex : g.vertexSet()) {
+			if(vertex.getColor().equals("WHITE")) {
+				dfs(g,vertex);
+				i++;
+			}
+		}
+		return i;
+	}
+	static void topologicalSort(Graph g, ArrayList<GraphNode> orderedVerticies) {
+	    for(GraphNode vertex : g.vertexSet()) {
+		if(vertex.getColor().equals("WHITE")) {
+		    topologicalSortDFS(g,vertex,orderedVerticies);
+		}
+	    }
+	}
+}

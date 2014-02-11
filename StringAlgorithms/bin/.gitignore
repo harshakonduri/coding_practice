@@ -1,3 +1,4 @@
-/KMP.class
-/PatternInArray.class
-/parsingLib.class
+/StringPartition.class
+/FirstNonRepeatedChar.class
+/StringCompression.class
+/StringSwapAdjacentAnagram.class

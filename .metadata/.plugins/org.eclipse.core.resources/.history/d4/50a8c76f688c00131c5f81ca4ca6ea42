@@ -1,0 +1,49 @@
+import java.util.ArrayList;
+
+public class BFS {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Graph g = new Graph("AL");
+		g.addEdge("a", "b");
+		g.addEdge("a", "c");
+		g.addEdge("b", "d");
+		g.addEdge("c", "d");
+		g.displayGraph();
+		bfs(g,g.getVertex("a"));
+	}
+	static void bfs(Graph g,GraphNode source) {
+		if(!g.hasVertex(source.toString())) {
+			System.out.println(source.toString());
+			return;
+		}
+		int globalTime = 0;
+		ArrayList<GraphNode> queue = new ArrayList<GraphNode>();
+		source.setColor("GREY");
+		source.setD(globalTime);
+		queue.add(source);
+		while(queue.size() > 0) {
+			source = queue.remove(0);
+			globalTime++;
+			ArrayList<GraphNode> adjList = g.adjacencyList(source);
+			
+			//System.out.print(source.toString()+" ");
+			System.out.println();
+			if(adjList.size() > 0) {
+	 			for(GraphNode adjVertex : adjList) {
+					System.out.print(adjVertex.toString()+" "+
+									adjVertex.getD()+" "+adjVertex.getColor());
+					if(adjVertex.getColor().equals("WHITE")) {
+						adjVertex.setD(globalTime);
+						adjVertex.setColor("GREY");
+						queue.add(adjVertex);
+					}
+				}
+			}
+			source.setColor("BLACK");
+			source.setF(++globalTime);
+			System.out.println();
+		}
+	}
+
+}

@@ -1,0 +1,6 @@
+import com.google.common.collect.MinMaxPriorityQueue;
+import com.google.common.collect.Queues;
+
+public class Test {
+		
+}

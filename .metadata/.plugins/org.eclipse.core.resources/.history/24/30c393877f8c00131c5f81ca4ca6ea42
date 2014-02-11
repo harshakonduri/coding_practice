@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+
+public class DFS {
+	static int globaltime;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Graph g = new Graph("AL");
+		g.addEdge("a", "b");
+		g.addEdge("a", "c");
+		g.addEdge("b", "d");
+		g.addEdge("c", "d");
+		g.addEdge("e", "f");
+		for(GraphNode gg : g.vertexSet()) {
+			dfs(g, gg);
+		}
+		for(GraphNode gg : g.vertexSet()) {
+			System.out.println(gg.getName()+" "+
+								gg.getD()+" "+gg.getF());
+		}
+	}
+	static void dfs(Graph g,GraphNode source) {
+		if(!source.getColor().equals("WHITE")) {
+			return;
+		}
+	// set the intial time of source, change color of source
+	source.setColor("GREY");
+	source.setD(globaltime);
+	// get the adj list of verticies to the source
+	ArrayList<GraphNode> adjVertex = g.adjacencyList(source);
+	globaltime++;
+	for(GraphNode vertex : adjVertex) {//for each v belongs to the adjlist
+		if(vertex.getColor().equals("WHITE")) {//if unvisited
+			dfs(g,vertex);//visit that vertex
+		}
+	}
+	source.setColor("BLACK");//set source color to black
+	source.setF(globaltime++);//set global time
+	}
+}

@@ -1,0 +1,77 @@
+class tm{
+	public static void main(String []ar) {
+		int a[][]={{5,1},{4,5}};
+		int maxMin=minimumPointOnMaximalPath(a);
+		System.out.println("\nMaximum minimum : "+maxMin);
+
+	}
+/*
+Explain your approach and how you intend to solve the problem
+
+A Brute force approach to this problem in which we list all possible paths will 
+result in exponential complexity.
+
+I can use Dynamic Programming to cut down the complexity to polynomial time.
+
+I am assuming that i cannot damage or destroy the original matrix, so
+I will store the results in a int [][] Result.
+
+The recurrance is 
+
+Result[i][j] = min(matrix[i][j],Result[i+1][j]) // if Result[i+1][j] > Result[i][j+1]
+               min(matrix[i][j],Result[i][j+1]) // otherwise
+
+
+At any point i,j Result[i][j] will contain the maximum minimum from (i,j) to (rows,cols)
+Finally Result[0][0] will contain the final minimum value of the maximum path.
+
+Explain the big-O run time complexity of your solution. Justify your answer.
+
+The runtime complexity will be O(rows*columns)
+
+*/
+
+static int minimumPointOnMaximalPath(int[][] matrix) {
+    // Assign the row and column lengths   
+ 		final int ROWS=matrix.length;
+		final int COLS=matrix[0].length;
+    
+		int Result[][]=new int[ROWS][COLS];
+		Result[ROWS-1][COLS-1]=matrix[ROWS-1][COLS-1];
+        // min is the maximized minimum from (i,j) to (rows,cols)    
+		int min=matrix[ROWS-1][COLS-1];
+     
+		for(int i=ROWS-2;i>=0;i--)
+		{
+			min=Math.min(matrix[i][COLS-1],min);
+			Result[i][COLS-1]=min;
+		}
+	    // reset min to last position in the Result Matrix
+        min=matrix[ROWS-1][COLS-1];
+		
+        for(int j=COLS-2;j>=0;j--)
+		{
+			min=Math.min(matrix[ROWS-1][j],min);
+			Result[ROWS-1][j]=min;
+		}
+    
+		for(int i=ROWS-2;i>=0;i--)
+		{
+			for(int j=COLS-2;j>=0;j--)
+			{
+				if(Result[i+1][j]>Result[i][j+1])
+				{
+					Result[i][j]=Math.min(Result[i+1][j],matrix[i][j] );
+				}
+				else
+				{
+					Result[i][j]=Math.min(Result[i][j+1],matrix[i][j] );
+				}
+			}
+		}
+		
+		
+		return Result[0][0];
+
+}
+}

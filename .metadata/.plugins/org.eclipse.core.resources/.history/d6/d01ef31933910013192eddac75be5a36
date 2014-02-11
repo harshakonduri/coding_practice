@@ -1,0 +1,45 @@
+public class StringSwapAdjacentAnagram {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	    String s1 = "abcde";
+	    String s2 = "bacde";
+	    transpose(s1.toCharArray(),s2.toCharArray());
+	}
+    static void transpose(char []s1,char []s2) {
+	int i = 0,j=0;
+	while(j < s2.length) {
+	    if(s1[j] == s2[j]) {
+		j++;
+	    }
+	    else {
+		i = getIndex(s1,s2[j],j);
+		System.out.println(i);
+		while(i > j && s1[i] != s2[j]) {
+		   s1 = swap(s1,i);
+		    i--;
+		}
+		for(char c : s1) {
+			System.out.print(c);
+		    }
+	    }//end else
+	    
+	    j++;
+	    System.out.println();
+	}//end while loop
+    }//end method
+    static char[] swap(char []s1,int i) {
+	char temp = s1[i-1];
+	s1[i-1] = s1[i];
+	s1[i] = temp;
+	return s1;
+    }
+    static int getIndex(char[]s1,char s,int pos) {
+	for(int i = pos;i < s1.length;i++) {
+	    if(s1[i] == s) {
+		return i;
+	    }
+	}//end for
+	return -1;
+    }
+}

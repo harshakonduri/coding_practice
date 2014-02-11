@@ -1,0 +1,25 @@
+import java.util.Collections;
+
+import com.google.common.collect.Collections2;
+import com.google.common.collect.MinMaxPriorityQueue;
+import com.google.common.collect.MinMaxPriorityQueue.Builder;
+import com.google.common.collect.Queues;
+
+public class Test {
+public static void main(String [] args) {	
+	Builder<String> mm;
+mm = MinMaxPriorityQueue.orderedBy(new Prob24Comparator());
+mm.maximumSize(3);
+MinMaxPriorityQueue<String> mmm= mm.create();
+	mmm.add("2");
+	mmm.add("4");
+	mmm.add("6");
+	mmm.add("1");
+	//System.out.println(mmm.size());
+	Collections.sort(mmm);
+	for(String s : mmm) {
+		System.out.println(s);
+	}
+}
+
+}

@@ -1,0 +1,59 @@
+import java.util.*;
+public class MedianOfStream {
+    public static void main(String []args) {
+	Scanner s = new Scanner(System.in);
+	PriorityQueue<Integer> left = new PriorityQueue<Integer>(1,Collections.reverseOrder());
+	PriorityQueue<Integer> right = new PriorityQueue<Integer>();
+	int median = 0;
+	int count = 0;
+	while(true) {
+	    int temp = s.nextInt();
+	    if(0 == count) {
+		median = temp;
+		left.add(temp);
+	    }
+	    else {
+		if(temp < median) {		 
+		    if(temp < left.peek()) {
+			left.add(temp);//add guy
+			right.add(left.poll());
+		    }
+		    else {
+			right.add(temp);
+			//left.add(temp);
+
+		    }			
+		}//end if t < m
+		else {		  
+		    if(temp > right.peek()) {
+			right.add(temp);//add guy
+			left.add(right.poll());
+		    }
+		    else {
+			left.add(right.poll());
+			right.add(temp);
+		    }
+		}//end t > m
+	    }//end else
+	    int lsize = left.size();
+	    int rsize = right.size();
+	    if(count == 0) {
+	    	System.out.println(median);
+	    }
+	    else if(count % 2 == 0) {
+		System.out.println((left.peek()+right.peek())/2);
+	    }
+	    else {
+		if(lsize > rsize) {
+		    System.out.println(left.peek());
+		}
+		else {
+			System.out.println(right.peek());
+		}
+	    }
+		count++;
+		System.out.println(left);
+		System.out.println(right);
+	}
+    }
+}

@@ -10,6 +10,7 @@ public GraphNode(String name) {
 	d = -1;
 	f = -1;
 	parent = null;	
+	color = "WHITE";
 }
 public String getName() {
 	return name;
@@ -40,6 +41,9 @@ public String getColor() {
 }
 public void setColor(String color) {
 	this.color = color;
+}
+public String toString() {
+	return this.name;
 }
 public boolean equals(Object obj) {
 	if(obj instanceof GraphNode && ((GraphNode) obj).getName().equals(name)) {

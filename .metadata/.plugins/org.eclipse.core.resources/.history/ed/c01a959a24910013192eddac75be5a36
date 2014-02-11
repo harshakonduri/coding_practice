@@ -1,0 +1,21 @@
+public class NStepsWays {
+    public static void main(String []a){
+	int n = 38;
+	int [] dp = new int[n];
+	dp[dp.length-1] = 1;
+	for(int i = dp.length-2;i>=0;i--) {
+	    if(i+3 < dp.length) {
+		dp[i] = dp[i+1]+dp[i+2]+dp[i+3];
+	    }
+	    else if(i+2 < dp.length) {
+		dp[i] = dp[i+1]+dp[i+2];
+	    }
+	    else if(i+1 < dp.length) {
+		dp[i] = dp[i+1];
+	    }
+	}
+	for(int i:dp) {
+	    System.out.print(i+" ");
+	}
+    }
+}

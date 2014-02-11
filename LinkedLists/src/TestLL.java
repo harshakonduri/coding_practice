@@ -1,19 +1,22 @@
 public class TestLL {
     public static void main(String []args) {
     	/* List Testing Set */
- 	LinkedList list = new LinkedList();
- 
-	list.printList();
-	list.insert(5);
-	list.insert(7);
-	list.insert(3);
-	list.insert(4);
-	list.insert(1);
-	list.insert(2);
-	list.printList();
-	list.partition(3);
-	System.out.println();
-	list.printList();
+ 	LinkedList list1 = new LinkedList();
+ 	LinkedList list2 = new LinkedList();
+	list1.insert(1);
+	list1.insert(2);
+	list1.insert(3);
+	list1.insert(4);
+	list2.insert(1);
+	list2.insert(3);
+	list2.insert(5);
+	list2.insert(7);
+	list1.printList();
+	list2.printList();
+	Node t = LinkedList.MergeLists(list1.head, list2.head);
+	list1.printList(t);
+	//LinkedList.sumOfList(list1.head, list2.head);
+	//list1.printList(LinkedList.newSum1.head);
 /*	Node hit = list.search(1);
 	System.out.println(list.delete(1));
 	list.printList();
@@ -40,16 +43,26 @@ public class TestLL {
 	System.out.println();
 	list.printList();
 	*/
-/* STACK TEST
- *     	Stacks s = new Stacks();
+/* STACK TEST 
+      	SetOfStacks s = new SetOfStacks(3);
     	s.push(1);
     	s.push(2);
     	s.push(3);
-    	s.printList();
-    	s.pop();
-    	s.peek();
-    	s.printList();
+    	s.push(4);
+    	s.push(5);
+    	s.push(6);
+    	s.push(7);
+    	s.push(8);
+    	System.out.println(s.set.size()+" "+s.stackIndex);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.set.size()+" "+s.stackIndex);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.pop().data);
+    	System.out.println(s.set.size()+" "+s.stackIndex);
+*/
 
- */
     }
 }

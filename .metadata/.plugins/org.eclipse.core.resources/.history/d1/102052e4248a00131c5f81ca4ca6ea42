@@ -1,0 +1,39 @@
+package genericTrees;
+
+public class BinTree<T> {
+    Node<T> root;
+    public BinTree(){
+		
+    }
+    public void insert(T data) {
+	    Node temp = new Node(data);
+	insert(root,temp);
+    }
+    public void insert(Node r,Node t) {
+	if(null == r) {
+	    r = t;
+	    return;
+	}
+	else if(r.compareTo(t) <= 0) {
+	    insert(r.left,t);
+	}
+	else {
+	    insert(r.right,t);
+	}	
+    }
+static class Node<T> implements Comparable {
+	T data;
+	Node<T> left;
+	Node<T> right;
+	public Node(T d) {
+		data = d;
+		left = null;
+		right = null;
+	}
+	public int compareTo(Object o) {
+	    if(o instanceof Node) {
+		return Integer.compare(this.data,(Nodeo).data);
+	    }
+	}
+}
+}

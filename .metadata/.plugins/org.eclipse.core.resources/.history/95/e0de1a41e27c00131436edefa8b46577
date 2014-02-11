@@ -1,0 +1,54 @@
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.PriorityQueue;
+
+import com.google.common.collect.Collections2;
+import com.google.common.collect.MinMaxPriorityQueue;
+import com.google.common.collect.MinMaxPriorityQueue.Builder;
+import com.google.common.collect.Queues;
+
+public class Test {
+public static void main(String [] args) {	
+	Builder<String> mm;
+mm = MinMaxPriorityQueue.orderedBy(new Prob24Comparator());
+mm.maximumSize(1000000);
+MinMaxPriorityQueue<String> mmm= mm.create();
+/*	mmm.add("2");
+	mmm.add("4");
+	mmm.add("6");
+	mmm.add("1");
+	//System.out.println(mmm.size());*/
+	String [] a = new String [1000000];
+	mmm.toArray(a);
+	Arrays.sort(a);
+	for(String s : a) {
+		System.out.println(s);
+	}
+}
+public static MinMaxPriorityQueue<String> permutations(StringBuffer s,int i,int n,MinMaxPriorityQueue<String> l) {
+	if(i == n) {			
+		//if(l.size() <= 1000000) {
+		//	System.out.println(s);
+
+		l.add(new String(s));
+	//	}
+		//System.out.println(s);			
+		return l;
+	}
+	//else {
+		for(int j = i;j<n;j++) {
+		// swap character at i,j
+		char t = s.charAt(i);
+		s.setCharAt(i, s.charAt(j));
+		s.setCharAt(j,t);
+		permutations(s, i+1, n,l);
+		// set back char at i to j// swap them back to original
+		t = s.charAt(i);
+		s.setCharAt(i, s.charAt(j));
+		s.setCharAt(j,t);
+	}
+	return l;
+	//}
+}
+
+}

@@ -1,0 +1,10 @@
+
+public class LIS {
+public static void main(String[] args) {
+	int [] a = {2,5,7,9};
+	int k = ceilIndex(a,8);
+}
+private int ceilIndex(int [] a , int n) {
+	in
+}
+}

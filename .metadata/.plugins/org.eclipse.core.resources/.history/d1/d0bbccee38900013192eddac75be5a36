@@ -1,0 +1,20 @@
+public class TwoSmallest {
+public static void main(String[] args) {
+	int [] a = {1,2,3,4,5,6,7};
+	print2Smallest(a);
+}
+    static void print2Smallest(int []a) {
+	if(a.length < 2) 
+	    return;
+	int sm = a[0],ssm = a[0];
+	for(int i:a) {
+	    if(i < sm) {
+		sm = i;
+	    }
+	    else if(i > sm && i < ssm) {
+		ssm = i;
+	    }
+	}
+	System.out.println("Smallest is : "+sm+" Second Smallest is :"+ssm);
+    }
+}
