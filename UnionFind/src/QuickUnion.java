@@ -1,0 +1,46 @@
+public class QuickUnion {
+    int [] id;
+    int [] sz;
+    int size;
+    public QuickUnion(int size) {
+	this.size = size;
+	id = new int[size];
+	sz = new int[size];
+	for(int i = 0;i < size; i++) {
+	    id[i] = i;
+	    sz[i] = 1;
+	}
+    }
+    void union(int p,int q) {
+	int rankP = rank(p);
+	int rankQ = rank(q);
+	id[rankP] = id[rankQ]; 
+	for(int i : id) {
+	    System.out.print(i+" ");
+	}
+	System.out.println();
+    }
+    boolean find(int p,int q) {	
+	int rankP = rank(p);
+	int rankQ = rank(q);
+	return (rankP == rankQ);
+    }
+    private int rank(int i) {
+	while(i != id[i]) {
+	    i = id[i];
+	}
+	return i;
+    }
+    public static void main(String [] args) {
+	QuickUnion q = new QuickUnion(10);
+	System.out.println(q.find(0,3));
+	q.union(0,3);
+	q.union(4,3);
+	q.union(5,6);
+	q.union(0,5);
+	System.out.println(q.find(0,3));
+	System.out.println(q.find(0,6));
+	System.out.println(q.find(4,6));
+    }
+
+}
