@@ -10,178 +10,208 @@ import java.util.*;
  * int addEdge(String u,String v); Add an edge between 2 verticies.
  */
 public class Graph {
-	private HashMap<GraphNode,ArrayList<GraphNode>> adjList;
-	private boolean [][] adjMatrix;
-	private int V;
-	private int E;
-	/**
-	 * 
-	 * @param representation : Specify which representation to store
-	 * the graph edges
-	 */
-	public Graph(String representation) {
-		if(representation.equals("AL")) {
-			System.out.println("Create Graph With Adjacency List");
-			adjList = new HashMap<GraphNode, ArrayList<GraphNode>>();
-		}
-		else if(representation.equals("AM")) {
-			adjMatrix = new boolean[26][26];
-		}
+    private HashMap<GraphNode,ArrayList<GraphNode>> adjList;
+    private boolean [][] adjMatrix;
+    private int V;
+    private int E;
+    private boolean isDirected;
+    /**
+     * 
+     * @param representation : Specify which representation to store
+     * the graph edges
+     */
+    public Graph(String representation) {
+	if(representation.equals("AL")) {
+	    System.out.println("Create Graph With Adjacency List");
+	    adjList = new HashMap<GraphNode, ArrayList<GraphNode>>();
 	}
-	/**
-	 * 
-	 * @param fileName specify the fileName to read input
-	 * @param delimiter specify delimiter to differentiate edges
-	 */
-	public Graph(String fileName,String delimiter) {
-		adjList = new HashMap<GraphNode, ArrayList<GraphNode>>();
-		buildGraph(fileName,delimiter);
+	else if(representation.equals("AM")) {
+	    adjMatrix = new boolean[26][26];
 	}
-	/**
-	 * 
-	 * @param v Check if the vertex is in the graph
-	 * @return true or false
-	 */
-	public boolean hasVertex(String v) {
-		for(GraphNode vertex:adjList.keySet()) {
-			if(vertex.toString().equals(v)) {
-				return true;
-			}
+    }
+    /**
+     * 
+     * @param representation : Specify which representation to store
+     * the graph edges
+     * @param directed : specify if the graph is directed or undirected
+     */
+    public Graph(String rep,boolean directed) {
+	this(rep);
+	isDirected = directed;
+    }
+    /**
+     * 
+     * @param fileName specify the fileName to read input
+     * @param delimiter specify delimiter to differentiate edges
+     */
+    public Graph(String fileName,String delimiter) {
+	adjList = new HashMap<GraphNode, ArrayList<GraphNode>>();
+	buildGraph(fileName,delimiter);
+    }
+    /**
+     * 
+     * @param v Check if the vertex is in the graph
+     * @return true or false
+     */
+    public boolean hasVertex(String v) {
+	for(GraphNode vertex:adjList.keySet()) {
+	    if(vertex.toString().equals(v)) {
+		return true;
+	    }
+	}
+	return false;
+    }
+    public Set<GraphNode> vertexSet() {
+	return adjList.keySet();
+    }
+    /**
+     * 
+     * @param u Source vertex of Edge
+     * @param v Destination Vertex of Edge
+     * @return true if the Edge is present in graph else false 
+     */
+    public boolean hasEdge(String u,String v) {
+	if(hasVertex(u)) {
+	    ArrayList<GraphNode> aL = adjacencyList(getVertex(u));
+	    for(GraphNode l : aL) {
+		if(l.getName().equals(v)) {
+		    return true;
 		}
-		return false;
+	    }
 	}
-	public Set<GraphNode> vertexSet() {
-		return adjList.keySet();
+	return false;
+    }
+    /**
+     * 
+     * @param v
+     * @return
+     */
+    public GraphNode getVertex(String v) {
+	GraphNode node=null;
+	if(hasVertex(v)) {
+	    for(GraphNode vertex : adjList.keySet()) {
+		if(vertex.toString().equals(v)) {
+		    return vertex;
+		}				
+	    }
 	}
-	/**
-	 * 
-	 * @param u Source vertex of Edge
-	 * @param v Destination Vertex of Edge
-	 * @return true if the Edge is present in graph else false 
-	 */
-	public boolean hasEdge(String u,String v) {
-		if(hasVertex(u)) {
-			ArrayList<GraphNode> aL = adjacencyList(getVertex(u));
-				for(GraphNode l : aL) {
-				if(l.getName().equals(v)) {
-					return true;
-				}
-			}
-		}
-		return false;
+	return null;
+    }
+    /**
+     * 
+     * @param u Source vertex of edge
+     * @param v Destination vertex of edge
+     * @return true if edge addition was successful.
+     */
+    public boolean addEdge(String u,String v) {
+	GraphNode unode=null,vnode=null;
+	if(!hasVertex(u)) {
+	    unode = new GraphNode(u);
 	}
-	/**
-	 * 
-	 * @param v
-	 * @return
-	 */
-	public GraphNode getVertex(String v) {
-		GraphNode node=null;
-		if(hasVertex(v)) {
-		for(GraphNode vertex : adjList.keySet()) {
-			if(vertex.toString().equals(v)) {
-				return vertex;
-			}				
-		}
-		}
-		return null;
+	else {
+	    unode = getVertex(u);
 	}
-	/**
-	 * 
-	 * @param u Source vertex of edge
-	 * @param v Destination vertex of edge
-	 * @return true if edge addition was successful.
-	 */
-	public boolean addEdge(String u,String v) {
-		GraphNode unode=null,vnode=null;
-		if(!hasVertex(u)) {
-			unode = new GraphNode(u);
+	if(!hasVertex(v)) {
+	    vnode = new GraphNode(v);
+	}
+	else {
+	    vnode = getVertex(v);
+	}
+	if(!hasEdge(u, v)) {
+	    ArrayList<GraphNode> listOfU = adjacencyList(unode);
+	    if(listOfU != null) { // adjList contains key u
+		adjList.remove(unode);
+		listOfU.add(vnode);
+		adjList.put(unode,listOfU);
+	    }
+	    else {
+		listOfU = new ArrayList<GraphNode>();
+		listOfU.add(vnode);
+		adjList.put(unode, listOfU);
+	    }
+	    if(isDirected) {
+		adjList.put(vnode,new ArrayList<GraphNode>());
+	    }
+	    else {	
+		ArrayList<GraphNode> listOfV = adjacencyList(vnode);
+		if(listOfV != null) { // adjList contains key v
+		    adjList.remove(vnode);
+		    listOfV.add(unode);
+		    adjList.put(vnode, listOfV);
 		}
 		else {
-			unode = getVertex(u);
-		}
-		if(!hasVertex(v)) {
-			vnode = new GraphNode(v);
-		}
-		else {
-			vnode = getVertex(v);
-		}
-		if(!hasEdge(u, v)) {
-			ArrayList<GraphNode> listOfU = adjacencyList(unode);
-			if(listOfU != null) { // adj list contains key u
-				adjList.remove(unode);
-				listOfU.add(vnode);
-				adjList.put(unode,listOfU);
-			}
-			else {
-				listOfU = new ArrayList<GraphNode>();
-				listOfU.add(vnode);
-				adjList.put(unode, listOfU);
-			}
-			//adjList.put(vnode,new ArrayList<GraphNode>());
-			ArrayList<GraphNode> listOfV = adjacencyList(vnode);
-			if(listOfV != null) { // adj list contains key v
-				adjList.remove(vnode);
-				listOfV.add(unode);
-				adjList.put(vnode, listOfV);
-			}
-			else {
-				listOfV = new ArrayList<GraphNode>();
-				listOfV.add(unode);
-				adjList.put(vnode, listOfV);
-			}		
-			setE(E++);
-		}
-		return false;
+		    listOfV = new ArrayList<GraphNode>();
+		    listOfV.add(unode);
+		    adjList.put(vnode, listOfV);
+		} 
+	    }		
+	    setE(E++);
 	}
-	/**
-	 * 
-	 * @param vertex : Input vertex
-	 * @return the adjacencyList representation of the vertex
-	 */
-	public ArrayList<GraphNode> adjacencyList(GraphNode vertex) {
-		if(hasVertex(vertex.toString())) {
-			return adjList.get(vertex);
-		}
-		return null;
+	return false;
+    }
+    /**
+     * 
+     * @param u Source vertex of edge
+     * @param v Destination vertex of edge
+     * @return true if edge addition was successful.
+     */
+    public boolean addEdge(String u,String v,int weight) {
+	addEdge(u,v);
+	GraphNode unode = getVertex(u);
+	GraphNode vnode = getVertex(v);
+	Edge e = new Edge(unode,vnode,weight);
+	unode.addEdge(e);
+	return false;
+    }
+
+    /**
+     * 
+     * @param vertex : Input vertex
+     * @return the adjacencyList representation of the vertex
+     */
+    public ArrayList<GraphNode> adjacencyList(GraphNode vertex) {
+	if(hasVertex(vertex.toString())) {
+	    return adjList.get(vertex);
 	}
-	/**
-	 * 
-	 * @param fileName specify the fileName to read input
-	 * @param delimiter specify delimiter to differentiate edges
-	 */
-	public void buildGraph(String fileName, String delimiter) {
-		// TODO Auto-generated method stub
+	return null;
+    }
+    /**
+     * 
+     * @param fileName specify the fileName to read input
+     * @param delimiter specify delimiter to differentiate edges
+     */
+    public void buildGraph(String fileName, String delimiter) {
+	// TODO Auto-generated method stub
 		
+    }
+    /**
+     * Display the Adjacency List of the Graph
+     */
+    public void displayGraph() {
+	Set<GraphNode> verticies = adjList.keySet();
+	Iterator<GraphNode> ir = verticies.iterator();
+	while(ir.hasNext()) {
+	    GraphNode key = ir.next();
+	    ArrayList<GraphNode> adjListVertex = adjacencyList(key);
+	    System.out.print(key + ":" + " ");
+	    for(GraphNode adjacentVerticies : adjListVertex) {
+		System.out.print(adjacentVerticies.getName() + " "+adjacentVerticies.getD()+" "+
+				 adjacentVerticies.getF());
+	    }
+	    System.out.println();
 	}
-	/**
-	 * Display the Adjacency List of the Graph
-	 */
-	public void displayGraph() {
-		Set<GraphNode> verticies = adjList.keySet();
-		Iterator<GraphNode> ir = verticies.iterator();
-		while(ir.hasNext()) {
-			GraphNode key = ir.next();
-			ArrayList<GraphNode> adjListVertex = adjacencyList(key);
-			System.out.print(key + ":" + " ");
-			for(GraphNode adjacentVerticies : adjListVertex) {
-				System.out.print(adjacentVerticies.getName() + " "+adjacentVerticies.getD()+" "+
-								adjacentVerticies.getF());
-			}
-			System.out.println();
-		}
-		//System.out.println(adjList);
-	}
-	public int getV() {
-		return adjList.keySet().size();
-	}
-	public void setV(int v) {
-		//
-	}
-	public int getE() {
-		return E;
-	}
-	public void setE(int e) {
-		E = e;
-	}
+	//System.out.println(adjList);
+    }
+    public int getV() {
+	return adjList.keySet().size();
+    }
+    public void setV(int v) {
+	//
+    }
+    public int getE() {
+	return E;
+    }
+    public void setE(int e) {
+	E = e;
+    }
 }
